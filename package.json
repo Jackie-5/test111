@@ -1,0 +1,179 @@
+{
+  "name": "electron-xunke",
+  "productName": "讯客客户端",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "build": "concurrently \"yarn clear\" \"yarn build-main\" \"yarn build-renderer\"",
+    "build-main": "cross-env NODE_ENV=production webpack --config ./webpack/electron.prod.js --colors",
+    "build-renderer": "cross-env NODE_ENV=production webpack --config ./webpack/react.pord.js --colors",
+    "dev": "cross-env START_HOT=1 PUSHLISH_ENV=dev yarn start-renderer-dev",
+    "alpha": "cross-env START_HOT=1 PUSHLISH_ENV=alpha yarn start-renderer-dev",
+    "package": "yarn build && electron-builder build --publish never",
+    "package-all": "yarn build && yarn clear-release && electron-builder build -mwl",
+    "package-linux": "yarn build && electron-builder build --linux",
+    "package-win:64": "yarn build && electron-builder build --win --x64",
+    "package-win:32": "yarn build && electron-builder build --win --x32",
+    "package-mac": "yarn build && electron-builder build --mac",
+    "start": "NODE_ENV=production yarn build && cross-env NODE_ENV=production electron ./dist/main.prod.js",
+    "start-main-dev": "cross-env HOT=1 NODE_ENV=development electron -r @babel/register ./source/main.js",
+    "start-renderer-dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack/react.dev.js",
+    "clear": "concurrently \"yarn clear-dist\" \"yarn clear-release\"",
+    "clear-dist": "rm -rf ./dist",
+    "clear-release": "rm -rf ./release"
+  },
+  "main": "./dist/main.prod.js",
+  "build": {
+    "productName": "讯客客户端",
+    "appId": "org.develar.ElectronReact",
+    "files": [
+      "dist/",
+      "dist/index.html",
+      "dist/main.prod.js",
+      "dist/main.prod.js.map",
+      "package.json"
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "msi"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "snap",
+        "AppImage"
+      ],
+      "category": "Development"
+    },
+    "directories": {
+      "buildResources": "icons",
+      "output": "release"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@47.97.174.90:2222/xunke-webs/electron-xunke.git"
+  },
+  "author": {
+    "name": "Jackie Wu",
+    "email": "jackie.me@qq.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-decorators": "^7.1.6",
+    "@babel/plugin-proposal-do-expressions": "^7.0.0",
+    "@babel/plugin-proposal-export-default-from": "^7.0.0",
+    "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
+    "@babel/plugin-proposal-function-bind": "^7.0.0",
+    "@babel/plugin-proposal-function-sent": "^7.1.0",
+    "@babel/plugin-proposal-json-strings": "^7.0.0",
+    "@babel/plugin-proposal-logical-assignment-operators": "^7.0.0",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.0.0",
+    "@babel/plugin-proposal-numeric-separator": "^7.0.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.0.0",
+    "@babel/plugin-proposal-pipeline-operator": "^7.0.0",
+    "@babel/plugin-proposal-throw-expressions": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-syntax-import-meta": "^7.0.0",
+    "@babel/plugin-transform-react-constant-elements": "^7.0.0",
+    "@babel/plugin-transform-react-inline-elements": "^7.0.0",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.4",
+    "babel-plugin-dev-expression": "^0.2.1",
+    "babel-plugin-import": "^1.11.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.20",
+    "concurrently": "^4.1.0",
+    "copy-webpack-plugin": "^5.0.2",
+    "core-js": "^3.0.0",
+    "cross-env": "^5.2.0",
+    "css-loader": "^1.0.1",
+    "electron": "^3.0.10",
+    "electron-builder": "^20.34.0",
+    "electron-devtools-installer": "^2.2.4",
+    "electron-updater": "^4.0.6",
+    "eslint": "^5.9.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-formatter-pretty": "^2.0.0",
+    "eslint-import-resolver-webpack": "^0.10.1",
+    "eslint-plugin-compat": "^2.6.3",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "6.1.2",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-react": "^7.11.1",
+    "fbjs-scripts": "^1.0.1",
+    "file-loader": "^2.0.0",
+    "husky": "^1.3.1",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "mini-css-extract-plugin": "^0.4.4",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "os": "^0.1.1",
+    "prettier": "^1.15.2",
+    "react-loadable": "^5.5.0",
+    "source-map-support": "^0.5.9",
+    "spectron": "^5.0.0",
+    "style-loader": "^0.23.1",
+    "stylelint": "^9.8.0",
+    "stylelint-config-prettier": "^4.0.0",
+    "stylelint-config-standard": "^18.2.0",
+    "terser-webpack-plugin": "^1.1.0",
+    "uglifyjs-webpack-plugin": "^2.1.2",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.26.0",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10",
+    "webpack-merge": "^4.2.1"
+  },
+  "dependencies": {
+    "antd": "^3.15.2",
+    "axios": "^0.18.0",
+    "braft-editor": "^2.2.10",
+    "dayjs": "^1.8.12",
+    "devtron": "^1.4.0",
+    "electron-debug": "^2.1.0",
+    "electron-log": "^3.0.4",
+    "electron-store": "^3.2.0",
+    "js-md5": "^0.7.3",
+    "lodash": "^4.17.11",
+    "nprogress": "^0.2.0",
+    "prop-types": "^15.7.2",
+    "rc-animate": "^2.6.0",
+    "react": "^16.8.6",
+    "react-beautiful-dnd": "^11.0.1",
+    "react-dom": "^16.8.6",
+    "react-hot-loader": "^4.3.12",
+    "react-keep-alive": "^2.0.1",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0"
+  },
+  "devEngines": {
+    "node": ">=7.x",
+    "npm": ">=4.x",
+    "yarn": ">=0.21.3"
+  },
+  "browserslist": "electron 1.6"
+}

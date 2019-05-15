@@ -1,0 +1,73 @@
+body {
+  background-color: #f6f6f6;
+}
+
+.float-left {
+  float: left!important;
+}
+.float-right {
+  float: right!important;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.clearfix {
+  zoom: 1;
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+#nprogress {
+  z-index: 99999;
+  top: 40px;
+  .bar {
+    background: #fe6c17;
+  }
+  .peg {
+    box-shadow: 0 0 10px #fe6c17, 0 0 5px #fe6c17;
+  }
+  .spinner {
+    display: none;
+  }
+  .spinner-icon {
+    border-top-color: #fe6c17;
+    border-left-color: #fe6c17;
+  }
+}
+
+.white-container {
+  background:#fff;
+  padding: 10px;
+}
+
+//::-webkit-scrollbar-track-piece { //滚动条凹槽的颜色，还可以设置边框属性
+//  background-color:#f8f8f8;
+//}
+//::-webkit-scrollbar {//滚动条的宽度
+//  width:3px;
+//  height:3px;
+//}
+//::-webkit-scrollbar-thumb {//滚动条的设置
+//  background-color:#dddddd;
+//  background-clip:padding-box;
+//  min-height:28px;
+//}
+//::-webkit-scrollbar-thumb:hover {
+//  background-color:#bbb;
+//}
